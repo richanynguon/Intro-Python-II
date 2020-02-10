@@ -86,34 +86,57 @@ while True:
     if room[account.current_room].items == []:
         print('There is nothing for you here')
     else:
-        item_list = ''
+        room_items = ''
         for i in room[account.current_room].items:
-            item_list += f'{i.name}, '
-        print(f'You see the following items: {item_list}')
+            room_items += f'{i.name}, '
+        print(f'You see the following items: {room_items}')
 
-    playerAction = input('\nDecide what you will do: ')
+    playerAction = input('\nDecide what you will do: ').split()
+
     if len(playerAction) == 1:
-        if playerAction.upper() in ['W', 'A', 'S', 'D']:
-            if playerAction.upper() == "W":
+        if playerAction[0] in ['w', 'a', 's', 'd']:
+            if playerAction[0] == "w":
                 cardinal_dir = "n"
-            if playerAction.upper() == "A":
+            if playerAction[0] == "a":
                 cardinal_dir = "w"
-            if playerAction.upper() == "S":
+            if playerAction[0] == "s":
                 cardinal_dir = "s"
-            if playerAction.upper() == "D":
+            if playerAction[0] == "d":
                 cardinal_dir = "e"
             print('\nYou wish to switch directions')
             able_to_travel(cardinal_dir)
 
-        if playerAction.upper() == "Q" or playerAction.upper() == "QUIT":
+        if playerAction[0] == "q" or playerAction[0] == "quit":
             goodbye = input(
                 '\nAre you sure you would like to part with your memories? [Y/n]: ')
-            if goodbye == "" or goodbye.upper() == "Y":
+            if goodbye == "" or goodbye == "y":
                 print(
                     'Farewell, your memories escape as you leave your body to its own fate')
                 break
-            if goodbye.upper() == "N":
+            if goodbye == "n":
                 print('Wise decision traveller')
+        if playerAction[0] == "i" or playerAction[0] == "inventory":
+            if account.items == []:
+                print('\n You open your bag and it is empty! No wonder it was so light')
+            else:
+                inventory_items = ''
+                for i in account.items:
+                    inventory_items += f'{i.name}'
+                print(f'\nYou open your bag and you see: {inventory_items}')
+
     if len(playerAction) == 2:
-        if playerAction[0].upper() in ['get', 'take']:
-            
+        if playerAction[0] in ['get', 'take']:
+            if item[playerAction[1]] in room[account.current_room].items:
+                account.items.append(item[playerAction[1]])
+                room[account.current_room].item_taken(item[playerAction[1]])
+                item[playerAction[1]].on_take()
+            else:
+                print('\nWhere do you see that item?')
+
+    elif playerAction[0] == 'drop':
+        if item[playerAction[1]] in account.items:
+            account.items.remove(item[playerAction[1]])
+            room[account.current_room].item_dropped(item[playerAction[1]])
+            item[playerAction[1]].on_drop()
+        else:
+            print('\nItem does not exists in your inventory')
