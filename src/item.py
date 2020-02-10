@@ -17,7 +17,7 @@ class Treasure(Item):
         super().__init__(name, description, adjective)
 
 
-class LighSource(Item):
+class LightSource(Item):
     def __init__(self, name, description, adjective):
         super().__init__(name, description, adjective)
 

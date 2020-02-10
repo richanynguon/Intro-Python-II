@@ -12,7 +12,7 @@ item = {
     'marble':  Item('marble', 'A small glass marble with a red and orange swirls'),
     'chalice':  Item('chalice', 'A golden chalice with jewels encrusted'),
     'journal':  Item('journal', 'A leather bound journal'),
-    'lamp':  Item('oil lamp', 'A silver oil lamp with only a small amount of oil left')
+    'lamp':  LightSource('lamp', 'A silver oil lamp with only a small amount of oil left', "shiny")
 }
 
 room = {
