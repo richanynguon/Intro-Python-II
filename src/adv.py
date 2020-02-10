@@ -43,7 +43,7 @@ room['treasure'].s_to = room['narrow']
 playerName = input('\nYou have awaken! \nThe cool damp ground seeps shivers into your spine as you gain consciousness. \nAs you slowly gain awareness you remember that you [Enter your name]: ')
 account = Player(playerName, 'outside')
 print('\nthat you %s were on a mission sent out by the king to retrieve the treasures hidden deep inside of this cave before you - \nmysteriously ... you have awaken here'% playerName)
-print('\nYou choose your destiny - press w to go north, a to go west, s to go south, and d to go east')
+print('\nYou choose your destiny - press w to go north, a to go west, s to go south, and d to go east\nYou may also leave this place by pressing q but you will leave your memories as well.')
 # Write a loop that:
 #
 # * Prints the current room name
@@ -58,7 +58,17 @@ print('\nYou choose your destiny - press w to go north, a to go west, s to go so
 playerAction = input('\nDecide: ')
 
 if playerAction == "w":
+    print('\nGoing north')
 if playerAction == "a":
+    print('\nGoing west')
 if playerAction == "s":
+    print('\nGoing south')
 if playerAction == "d":
+    print('\nGoing east')
 if playerAction == "q":
+    goodbye = input('\nAre you sure you would like to part with your memories? [Y/n]: ')
+    if goodbye == "" or goodbye.upper() == "Y":
+        print('Farewell, your memories escape as you leave your body to its own fate')
+    if goodbye.upper() == "N":
+        print('Wise decision traveller')
+    
