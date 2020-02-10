@@ -40,9 +40,10 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-playerName = input('\nYou have awaken! \nThe cool damp ground seeps shivers into your spine as you gain consciousness. \nAs you slowly gain awareness you remember that you [Enter your name]: ')
+playerName = input(
+    '\nYou have awaken! \nThe cool damp ground seeps shivers into your spine as you gain consciousness. \nAs you slowly gain awareness you remember that you [Enter your name]: ')
 account = Player(playerName, 'outside')
-print('\nthat you %s were on a mission sent out by the king to retrieve the treasures hidden deep inside of this cave before you - \nmysteriously ... you have awaken here'% playerName)
+print('\nthat you %s were on a mission sent out by the king to retrieve the treasures hidden deep inside of this cave before you - \nmysteriously ... you have awaken here' % playerName)
 print('\nYou choose your destiny - press w to go north, a to go west, s to go south, and d to go east\nYou may also leave this place by pressing q but you will leave your memories as well.')
 # Write a loop that:
 #
@@ -55,20 +56,41 @@ print('\nYou choose your destiny - press w to go north, a to go west, s to go so
 #
 # If the user enters "q", quit the game.
 
-playerAction = input('\nDecide: ')
 
-if playerAction == "w":
-    print('\nGoing north')
-if playerAction == "a":
-    print('\nGoing west')
-if playerAction == "s":
-    print('\nGoing south')
-if playerAction == "d":
-    print('\nGoing east')
-if playerAction == "q":
-    goodbye = input('\nAre you sure you would like to part with your memories? [Y/n]: ')
-    if goodbye == "" or goodbye.upper() == "Y":
-        print('Farewell, your memories escape as you leave your body to its own fate')
-    if goodbye.upper() == "N":
-        print('Wise decision traveller')
-    
+def able_to_travel(direction):
+    direction_to = f'{direction}_to'
+    if getattr(room[account.current_room], direction_to) != {}:
+        next_room = getattr(room[account.current_room], direction_to)
+        account.current_room = list(room.keys())[
+            list(room.values()).index(next_room)]
+        print('\nTravelling to %s' % account.current_room)
+    else:
+        print('\nYour wish is denied, there is no path in that direction')
+
+
+while True:
+
+    print('\nNow in %s' % account.current_room)
+
+    playerAction = input('\nDecide what you will do: ')
+
+    if playerAction.upper() in ['W', 'A', 'S', 'D']:
+        if playerAction.upper() == "W":
+            cardinal_dir = "n"
+        if playerAction.upper() == "A":
+            cardinal_dir = "w"
+        if playerAction.upper() == "S":
+            cardinal_dir = "s"
+        if playerAction.upper() == "D":
+            cardinal_dir = "e"
+        print('\nYou wish to switch directions')
+        able_to_travel(cardinal_dir)
+
+    if playerAction.upper() == "Q" or playerAction.upper() == "QUIT":
+        goodbye = input(
+            '\nAre you sure you would like to part with your memories? [Y/n]: ')
+        if goodbye == "" or goodbye.upper() == "Y":
+            print('Farewell, your memories escape as you leave your body to its own fate')
+            break
+        if goodbye.upper() == "N":
+            print('Wise decision traveller')
