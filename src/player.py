@@ -3,7 +3,8 @@
 
 
 class Player:
-    def __init__(self, name, current_room, items=[]):
+    def __init__(self, name, current_room, items=[], score=20):
         self.name = name
         self.current_room = current_room
         self.items = items
+        self.score = score
