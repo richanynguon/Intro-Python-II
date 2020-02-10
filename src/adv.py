@@ -63,14 +63,14 @@ def able_to_travel(direction):
         next_room = getattr(room[account.current_room], direction_to)
         account.current_room = list(room.keys())[
             list(room.values()).index(next_room)]
-        print('\nTravelling to %s' % account.current_room)
+        print('Travelling to %s' % account.current_room)
     else:
-        print('\nYour wish is denied, there is no path in that direction')
+        print('Your wish is denied, there is no path in that direction')
 
 
 while True:
 
-    print('\nNow in %s' % account.current_room)
+    print('\nNow in %s' % room[account.current_room].name, room[account.current_room].description )
 
     playerAction = input('\nDecide what you will do: ')
 
