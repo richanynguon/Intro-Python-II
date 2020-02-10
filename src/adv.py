@@ -40,8 +40,10 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-
-
+playerName = input('\nYou have awaken! \nThe cool damp ground seeps shivers into your spine as you gain consciousness. \nAs you slowly gain awareness you remember that you [Enter your name]: ')
+account = Player(playerName, 'outside')
+print('\nthat you %s were on a mission sent out by the king to retrieve the treasures hidden deep inside of this cave before you - \nmysteriously ... you have awaken here'% playerName)
+print('\nYou choose your destiny - press w to go north, a to go west, s to go south, and d to go east')
 # Write a loop that:
 #
 # * Prints the current room name
@@ -52,3 +54,11 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+playerAction = input('\nDecide: ')
+
+if playerAction == "w":
+if playerAction == "a":
+if playerAction == "s":
+if playerAction == "d":
+if playerAction == "q":
