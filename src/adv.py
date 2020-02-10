@@ -4,23 +4,33 @@ from item import Item
 
 # Declare all the rooms
 
+item = {
+    'key': Item('key', 'A reqular key covered in dried blood'),
+    'dagger':   Item('dagger', 'A dull dagger that has a cloth wrapped around its handle'),
+    'orb':  Item('orb', 'A darken orb'),
+    'shard':  Item('shard', 'A shard of multicolored glass'),
+    'marble':  Item('marble', 'A small glass marble with a red and orange swirls'),
+    'chalice':  Item('chalice', 'A golden chalice with jewels encrusted'),
+    'journal':  Item('journal', 'A leather bound journal')
+}
+
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+                     "North of you, the cave mount beckons", [item['marble'], item['shard']]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+passages run north and east.""", [item['key'], item['chalice']]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
+the distance, but there is no way across the chasm.""", [item['dagger'], item['journal']]),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
+to north. The smell of gold permeates the air.""", [item['orb'], item['chalice']]),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
+earlier adventurers. The only exit is to the south.""", []),
 }
 
 
@@ -70,27 +80,40 @@ def able_to_travel(direction):
 
 while True:
 
-    print('\nNow in %s' % room[account.current_room].name, room[account.current_room].description )
+    print('\nNow in %s' % room[account.current_room].name,
+          room[account.current_room].description)
+
+    if room[account.current_room].items == []:
+        print('There is nothing for you here')
+    else:
+        item_list = ''
+        for i in room[account.current_room].items:
+            item_list += f'{i.name}, '
+        print(f'You see the following items: {item_list}')
 
     playerAction = input('\nDecide what you will do: ')
+    if len(playerAction) == 1:
+        if playerAction.upper() in ['W', 'A', 'S', 'D']:
+            if playerAction.upper() == "W":
+                cardinal_dir = "n"
+            if playerAction.upper() == "A":
+                cardinal_dir = "w"
+            if playerAction.upper() == "S":
+                cardinal_dir = "s"
+            if playerAction.upper() == "D":
+                cardinal_dir = "e"
+            print('\nYou wish to switch directions')
+            able_to_travel(cardinal_dir)
 
-    if playerAction.upper() in ['W', 'A', 'S', 'D']:
-        if playerAction.upper() == "W":
-            cardinal_dir = "n"
-        if playerAction.upper() == "A":
-            cardinal_dir = "w"
-        if playerAction.upper() == "S":
-            cardinal_dir = "s"
-        if playerAction.upper() == "D":
-            cardinal_dir = "e"
-        print('\nYou wish to switch directions')
-        able_to_travel(cardinal_dir)
-
-    if playerAction.upper() == "Q" or playerAction.upper() == "QUIT":
-        goodbye = input(
-            '\nAre you sure you would like to part with your memories? [Y/n]: ')
-        if goodbye == "" or goodbye.upper() == "Y":
-            print('Farewell, your memories escape as you leave your body to its own fate')
-            break
-        if goodbye.upper() == "N":
-            print('Wise decision traveller')
+        if playerAction.upper() == "Q" or playerAction.upper() == "QUIT":
+            goodbye = input(
+                '\nAre you sure you would like to part with your memories? [Y/n]: ')
+            if goodbye == "" or goodbye.upper() == "Y":
+                print(
+                    'Farewell, your memories escape as you leave your body to its own fate')
+                break
+            if goodbye.upper() == "N":
+                print('Wise decision traveller')
+    if len(playerAction) == 2:
+        if playerAction[0].upper() in ['get', 'take']:
+            
