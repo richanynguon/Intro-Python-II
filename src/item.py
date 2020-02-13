@@ -22,4 +22,4 @@ class LightSource(Item):
         super().__init__(name, description, adjective)
 
     def on_drop(self):
-      print("\nIt's not wise to drop your source of light - the darkness lingers")
+        print("\nIt's not wise to drop your source of light - the darkness lingers")
